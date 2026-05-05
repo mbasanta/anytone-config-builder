@@ -1,0 +1,78 @@
+# .NET / Visual Studio
+bin/
+obj/
+packages/
+*.user
+*.suo
+.vs/
+.vscode/
+*.csproj.user
+.DS_Store
+Thumbs.db
+
+# Build outputs
+[Dd]ebug/
+[Rr]elease/
+[Bb]uild/
+*.dll
+*.exe
+*.pdb
+dist/
+
+# Test results
+TestResults/
+*.trx
+coverage/
+*.opencover.xml
+
+# Temporary files
+temp/
+tmp/
+*.tmp
+*.log
+*.swp
+*.swo
+
+# IDE files
+.idea/
+*.vs/
+*.code-workspace
+
+# Local configuration
+appsettings.Development.json
+appsettings.Local.json
+local.settings.json
+
+# Session and runtime files
+session-*
+*.db
+*.sqlite
+*.sqlite3
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Node (if used for frontend)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# ASP.NET specific
+wwwroot/lib/
+*.VisualState.xml
+
+# User-specific files
+*.jfm
+*.rsuser
+
+# Rider
+.idea/
+*.sln.iml
+*.sln.user
+
+# Environment files
+.env
+.env.local
+.env.*.local

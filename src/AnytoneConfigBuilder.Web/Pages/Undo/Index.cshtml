@@ -1,0 +1,84 @@
+@page
+@model AnytoneConfigBuilder.Web.Pages.Undo.IndexModel
+@{
+    ViewData["Title"] = "Undo";
+}
+
+<style>
+    .form-text-help {
+        display: block;
+        margin-top: 0.25rem;
+        font-size: 0.875rem;
+        color: #6c757d;
+    }
+</style>
+
+<div class="mb-4">
+    <h1 class="display-6">Undo Builder Output</h1>
+    <p class="text-muted">Reverse-engineer Anytone CPS export files back to source builder input CSVs.</p>
+</div>
+
+<div class="alert alert-info mb-4">
+    <i class="bi bi-info-circle"></i>
+    <strong>How it works:</strong> Upload the three CSV files exported from Anytone CPS (channels.csv, zones.csv, talkgroups.csv) to reconstruct the original analog.csv, digital-others.csv, digital-repeaters.csv, and talkgroups.csv files used to build your configuration.
+</div>
+
+@if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="bi bi-exclamation-circle"></i> @Html.Raw(Model.ErrorMessage)
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (!string.IsNullOrWhiteSpace(Model.InfoMessage))
+{
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        <i class="bi bi-info-circle"></i> @Model.InfoMessage
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<form method="post" enctype="multipart/form-data" class="card p-3 mb-4">
+    <div class="mb-3">
+        <label class="form-label" for="channels">
+            <i class="bi bi-file-earmark"></i> channels.csv
+        </label>
+        <input class="form-control" type="file" id="channels" name="channels" accept=".csv" required />
+        <small class="form-text-help">Channel definitions exported from Anytone CPS (required)</small>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" for="zones">
+            <i class="bi bi-file-earmark"></i> zones.csv
+        </label>
+        <input class="form-control" type="file" id="zones" name="zones" accept=".csv" required />
+        <small class="form-text-help">Zone groupings exported from Anytone CPS (required)</small>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" for="talkgroups">
+            <i class="bi bi-file-earmark"></i> talkgroups.csv
+        </label>
+        <input class="form-control" type="file" id="talkgroups" name="talkgroups" accept=".csv" required />
+        <small class="form-text-help">Talk group definitions exported from Anytone CPS (required)</small>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
+        <i class="bi bi-arrow-counterclockwise"></i> Reconstruct Input CSVs
+    </button>
+</form>
+
+<div class="mt-4">
+    <a asp-page="/Index" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i> Back to Builder
+    </a>
+</div>
+
+<script>
+    document.querySelector('form').addEventListener('submit', function() {
+        const btn = document.getElementById('submitBtn');
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Processing...';
+    });
+</script>

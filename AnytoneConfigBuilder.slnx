@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/AnytoneConfigBuilder.Cli/AnytoneConfigBuilder.Cli.csproj" />
+    <Project Path="src/AnytoneConfigBuilder.Core/AnytoneConfigBuilder.Core.csproj" />
+    <Project Path="src/AnytoneConfigBuilder.Web/AnytoneConfigBuilder.Web.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/AnytoneConfigBuilder.Core.Tests/AnytoneConfigBuilder.Core.Tests.csproj" />
+  </Folder>
+</Solution>

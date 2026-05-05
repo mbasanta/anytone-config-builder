@@ -1,0 +1,216 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Builder";
+}
+
+<style>
+    .help-icon {
+        cursor: help;
+        color: #0d6efd;
+        font-size: 0.9rem;
+    }
+    .form-text-help {
+        display: block;
+        margin-top: 0.25rem;
+        font-size: 0.875rem;
+        color: #6c757d;
+    }
+    .download-button {
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+</style>
+
+<div class="mb-4">
+    <h1 class="display-6">Anytone Config Builder</h1>
+    <p class="text-muted">Upload your source CSV files and generate Anytone CPS output files.</p>
+</div>
+
+@if (Model.Errors.Count > 0)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong><i class="bi bi-exclamation-circle"></i> Errors</strong>
+        <ul class="mb-0 mt-2">
+            @foreach (var error in Model.Errors)
+            {
+                <li>@Html.Raw(error)</li>
+            }
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (Model.Warnings.Count > 0)
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong><i class="bi bi-exclamation-triangle"></i> Warnings</strong>
+        <ul class="mb-0 mt-2">
+            @foreach (var warning in Model.Warnings)
+            {
+                <li>@warning</li>
+            }
+        </ul>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (!string.IsNullOrWhiteSpace(Model.InfoMessage))
+{
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        <i class="bi bi-info-circle"></i> @Model.InfoMessage
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (Model.ShowDownloadOptions)
+{
+    <div class="card mb-4 border-success">
+        <div class="card-header bg-success text-white">
+            <strong>✓ Build Complete - Download Your Files</strong>
+        </div>
+        <div class="card-body">
+            <p class="card-text mb-3">Your configuration files are ready:</p>
+            <div class="btn-group-vertical w-100" role="group">
+                <a href="@Url.Page(null, "DownloadFile", new { filename = "channels.csv" })" class="btn btn-outline-primary text-start download-button">
+                    <i class="bi bi-download"></i> channels.csv
+                    <small class="d-block text-muted">Channel definitions</small>
+                </a>
+                <a href="@Url.Page(null, "DownloadFile", new { filename = "zones.csv" })" class="btn btn-outline-primary text-start download-button">
+                    <i class="bi bi-download"></i> zones.csv
+                    <small class="d-block text-muted">Zone groupings</small>
+                </a>
+                <a href="@Url.Page(null, "DownloadFile", new { filename = "scanlists.csv" })" class="btn btn-outline-primary text-start download-button">
+                    <i class="bi bi-download"></i> scanlists.csv
+                    <small class="d-block text-muted">Scan list configurations</small>
+                </a>
+                <a href="@Url.Page(null, "DownloadFile", new { filename = "talkgroups.csv" })" class="btn btn-outline-primary text-start download-button">
+                    <i class="bi bi-download"></i> talkgroups.csv
+                    <small class="d-block text-muted">Talk group definitions</small>
+                </a>
+            </div>
+            <hr />
+            <div>
+                <a href="@Url.Page(null, "DownloadZip")" class="btn btn-success">
+                    <i class="bi bi-file-zip"></i> Download All as ZIP
+                </a>
+                <a href="@Url.Page("/Index")" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-clockwise"></i> Build Again
+                </a>
+            </div>
+        </div>
+    </div>
+}
+
+<form method="post" enctype="multipart/form-data" class="card p-3">
+    <div class="mb-3">
+        <label class="form-label" for="analog">
+            <i class="bi bi-file-earmark-pdf"></i> Analog CSV
+        </label>
+        <input class="form-control" type="file" id="analog" name="analog" accept=".csv" />
+        <small class="form-text-help">Contains analog channel definitions (frequency, power, CTCSS, etc.)</small>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" for="digitalothers">
+            <i class="bi bi-file-earmark-pdf"></i> Digital-Others CSV
+        </label>
+        <input class="form-control" type="file" id="digitalothers" name="digitalothers" accept=".csv" />
+        <small class="form-text-help">Contains digital simplex and hotspot channel definitions</small>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" for="digitalrepeaters">
+            <i class="bi bi-file-earmark-pdf"></i> Digital-Repeaters CSV
+        </label>
+        <input class="form-control" type="file" id="digitalrepeaters" name="digitalrepeaters" accept=".csv" />
+        <small class="form-text-help">Contains DMR repeater configurations with timeslot and color code mappings</small>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" for="talkgroups">
+            <i class="bi bi-file-earmark-pdf"></i> TalkGroups CSV
+        </label>
+        <input class="form-control" type="file" id="talkgroups" name="talkgroups" accept=".csv" />
+        <small class="form-text-help">Contains talk group definitions and descriptions</small>
+    </div>
+
+    <h2 class="h5 mt-4">Advanced Options</h2>
+
+    <div class="mb-3">
+        <label class="form-label" for="sort">
+            <i class="bi bi-sort-up help-icon" title="Controls how zones and talk groups are ordered in your CPS"></i>
+            Zone/Talkgroup Sort Order
+        </label>
+        <select class="form-select" id="sort" name="sort">
+            <option value="alpha" selected>Alphabetize them for me</option>
+            <option value="repeaters-first">Use my sorting, DMR repeaters first</option>
+            <option value="analog-first">Use my sorting, analog channels first</option>
+        </select>
+        <small class="form-text-help">
+            • <strong>Alphabetize:</strong> All zones sorted alphabetically (easiest to find)<br />
+            • <strong>Repeaters First:</strong> Maintain your input order, DMR repeaters appear before simplex/hotspots<br />
+            • <strong>Analog First:</strong> Maintain your input order, analog channels appear first
+        </small>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" for="hotspot">
+            <i class="bi bi-wifi help-icon" title="Controls TX permission for hotspot/simplex digital channels"></i>
+            TX Permit for Hotspots
+        </label>
+        <select class="form-select" id="hotspot" name="hotspot">
+            <option value="same-color-code" selected>Same Color Code</option>
+            <option value="always">Always</option>
+        </select>
+        <small class="form-text-help">
+            • <strong>Same Color Code:</strong> Transmit only when receiving the same color code (more conservative, prevents interference)<br />
+            • <strong>Always:</strong> Allow transmission anytime (less restrictive, may cause interference)
+        </small>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" for="nicknames">
+            <i class="bi bi-tag help-icon" title="Adds nicknames to repeater channel names to make them unique"></i>
+            Digital Repeater Nicknames
+        </label>
+        <select class="form-select" id="nicknames" name="nicknames">
+            <option value="off" selected>Off</option>
+            <option value="prefix">Prefix (if needed)</option>
+            <option value="suffix">Suffix (if needed)</option>
+            <option value="prefix-forced">Prefix (forced)</option>
+            <option value="suffix-forced">Suffix (forced)</option>
+        </select>
+        <small class="form-text-help">
+            • <strong>Off:</strong> Use repeater names as-is<br />
+            • <strong>Prefix/Suffix (if needed):</strong> Only add location nickname if duplicate names exist<br />
+            • <strong>Prefix/Suffix (forced):</strong> Always add location nickname regardless of duplicates
+        </small>
+    </div>
+
+    <div>
+        <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
+            <i class="bi bi-cog"></i> Generate Files
+        </button>
+        <small class="form-text-help d-block mt-2">Processing typically takes 1-5 seconds</small>
+    </div>
+</form>
+
+<div class="mt-4">
+    <div class="btn-group" role="group">
+        <a asp-page="/Checker/Index" class="btn btn-outline-secondary">
+            <i class="bi bi-check-circle"></i> Open Channel Checker
+        </a>
+        <a asp-page="/Undo/Index" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-counterclockwise"></i> Open Undo Tool
+        </a>
+    </div>
+</div>
+
+<script>
+    document.querySelector('form').addEventListener('submit', function() {
+        const btn = document.getElementById('submitBtn');
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Processing...';
+    });
+</script>

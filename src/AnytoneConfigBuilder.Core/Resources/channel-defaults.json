@@ -1,0 +1,257 @@
+﻿[
+    {
+        "index":  0,
+        "fieldName":  "No.",
+        "defaultValue":  null
+    },
+    {
+        "index":  1,
+        "fieldName":  "Channel Name",
+        "defaultValue":  null
+    },
+    {
+        "index":  2,
+        "fieldName":  "Receive Frequency",
+        "defaultValue":  null
+    },
+    {
+        "index":  3,
+        "fieldName":  "Transmit Frequency",
+        "defaultValue":  null
+    },
+    {
+        "index":  4,
+        "fieldName":  "Channel Type",
+        "defaultValue":  null
+    },
+    {
+        "index":  5,
+        "fieldName":  "Transmit Power",
+        "defaultValue":  "High"
+    },
+    {
+        "index":  6,
+        "fieldName":  "Band Width",
+        "defaultValue":  "12.5K"
+    },
+    {
+        "index":  7,
+        "fieldName":  "CTCSS/DCS Decode",
+        "defaultValue":  "Off"
+    },
+    {
+        "index":  8,
+        "fieldName":  "CTCSS/DCS Encode",
+        "defaultValue":  "Off"
+    },
+    {
+        "index":  9,
+        "fieldName":  "Contact",
+        "defaultValue":  ""
+    },
+    {
+        "index":  10,
+        "fieldName":  "Contact Call Type",
+        "defaultValue":  "Group Call"
+    },
+    {
+        "index":  11,
+        "fieldName":  "Radio ID",
+        "defaultValue":  "DMR ID"
+    },
+    {
+        "index":  12,
+        "fieldName":  "Busy Lock/TX Permit",
+        "defaultValue":  "Same Color Code"
+    },
+    {
+        "index":  13,
+        "fieldName":  "Squelch Mode",
+        "defaultValue":  "Carrier"
+    },
+    {
+        "index":  14,
+        "fieldName":  "Optional Signal",
+        "defaultValue":  "Off"
+    },
+    {
+        "index":  15,
+        "fieldName":  "DTMF ID",
+        "defaultValue":  "1"
+    },
+    {
+        "index":  16,
+        "fieldName":  "2Tone ID",
+        "defaultValue":  "1"
+    },
+    {
+        "index":  17,
+        "fieldName":  "5Tone ID",
+        "defaultValue":  "1"
+    },
+    {
+        "index":  18,
+        "fieldName":  "PTT ID",
+        "defaultValue":  "Off"
+    },
+    {
+        "index":  19,
+        "fieldName":  "Color Code",
+        "defaultValue":  "0"
+    },
+    {
+        "index":  20,
+        "fieldName":  "Slot",
+        "defaultValue":  "1"
+    },
+    {
+        "index":  21,
+        "fieldName":  "Scan List",
+        "defaultValue":  null
+    },
+    {
+        "index":  22,
+        "fieldName":  "Receive Group List",
+        "defaultValue":  "None"
+    },
+    {
+        "index":  23,
+        "fieldName":  "TX Prohibit",
+        "defaultValue":  "Off"
+    },
+    {
+        "index":  24,
+        "fieldName":  "Reverse",
+        "defaultValue":  "Off"
+    },
+    {
+        "index":  25,
+        "fieldName":  "Simplex TDMA",
+        "defaultValue":  "Off"
+    },
+    {
+        "index":  26,
+        "fieldName":  "TDMA Adaptive",
+        "defaultValue":  "Off"
+    },
+    {
+        "index":  27,
+        "fieldName":  "Encryption Type",
+        "defaultValue":  "Normal Encryption"
+    },
+    {
+        "index":  28,
+        "fieldName":  "Digital Encryption",
+        "defaultValue":  "Off"
+    },
+    {
+        "index":  29,
+        "fieldName":  "Call Confirmation",
+        "defaultValue":  "Off"
+    },
+    {
+        "index":  30,
+        "fieldName":  "Talk Around",
+        "defaultValue":  "Off"
+    },
+    {
+        "index":  31,
+        "fieldName":  "Work Alone",
+        "defaultValue":  "Off"
+    },
+    {
+        "index":  32,
+        "fieldName":  "Custom CTCSS",
+        "defaultValue":  "0.0"
+    },
+    {
+        "index":  33,
+        "fieldName":  "2TONE Decode",
+        "defaultValue":  "1"
+    },
+    {
+        "index":  34,
+        "fieldName":  "Ranging",
+        "defaultValue":  "Off"
+    },
+    {
+        "index":  35,
+        "fieldName":  "Through Mode",
+        "defaultValue":  "Off"
+    },
+    {
+        "index":  36,
+        "fieldName":  "Digi APRS RX",
+        "defaultValue":  "Off"
+    },
+    {
+        "index":  37,
+        "fieldName":  "Analog APRS PTT Mode",
+        "defaultValue":  "Off"
+    },
+    {
+        "index":  38,
+        "fieldName":  "Digital APRS PTT Mode",
+        "defaultValue":  "Off"
+    },
+    {
+        "index":  39,
+        "fieldName":  "APRS Report Type",
+        "defaultValue":  "Off"
+    },
+    {
+        "index":  40,
+        "fieldName":  "Digital APRS Report Channel",
+        "defaultValue":  "1"
+    },
+    {
+        "index":  41,
+        "fieldName":  "Correct Frequency[Hz]",
+        "defaultValue":  "0"
+    },
+    {
+        "index":  42,
+        "fieldName":  "SMS Confirmation",
+        "defaultValue":  "Off"
+    },
+    {
+        "index":  43,
+        "fieldName":  "Exclude channel from roaming",
+        "defaultValue":  "0"
+    },
+    {
+        "index":  44,
+        "fieldName":  "Contact Call Type",
+        "defaultValue":  "Group Call"
+    },
+    {
+        "index":  45,
+        "fieldName":  "Contact TG/DMR ID",
+        "defaultValue":  "0"
+    },
+    {
+        "index":  46,
+        "fieldName":  "AES Digital Encryption",
+        "defaultValue":  "Normal Encryption"
+    },
+    {
+        "index":  47,
+        "fieldName":  "DMR MODE",
+        "defaultValue":  "0"
+    },
+    {
+        "index":  48,
+        "fieldName":  "PTT Prohibit",
+        "defaultValue":  "Off"
+    },
+    {
+        "index":  49,
+        "fieldName":  "Talk Around(Simplex)",
+        "defaultValue":  "Off"
+    },
+    {
+        "index":  50,
+        "fieldName":  "APRS RX",
+        "defaultValue":  "Off"
+    }
+]
