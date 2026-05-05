@@ -16,7 +16,6 @@ Thumbs.db
 *.dll
 *.exe
 *.pdb
-dist/
 
 # Test results
 TestResults/
