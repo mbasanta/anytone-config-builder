@@ -1,0 +1,122 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": ".NET Launch Web",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/src/AnytoneConfigBuilder.Web/bin/Debug/net10.0/AnytoneConfigBuilder.Web.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/AnytoneConfigBuilder.Web",
+            "stopAtEntry": false,
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            },
+            "sourceFileMap": {
+                "/Views": "${workspaceFolder}/src/AnytoneConfigBuilder.Web/Views"
+            }
+        },
+        {
+            "name": ".NET Launch CLI",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/src/AnytoneConfigBuilder.Cli/bin/Debug/net10.0/AnytoneConfigBuilder.Cli.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/src/AnytoneConfigBuilder.Cli",
+            "stopAtEntry": false,
+            "console": "integratedTerminal"
+        },
+        {
+            "name": ".NET CLI Defaults",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/src/AnytoneConfigBuilder.Cli/bin/Debug/net10.0/AnytoneConfigBuilder.Cli.dll",
+            "args": [
+                "defaults"
+            ],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "integratedTerminal"
+        },
+        {
+            "name": ".NET CLI Build (Sample CSVs)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/src/AnytoneConfigBuilder.Cli/bin/Debug/net10.0/AnytoneConfigBuilder.Cli.dll",
+            "args": [
+                "build",
+                "--analog-csv=${workspaceFolder}/input-csv/Analog.csv",
+                "--digital-others-csv=${workspaceFolder}/input-csv/Digital-Others.csv",
+                "--digital-repeaters-csv=${workspaceFolder}/input-csv/Digital-Repeaters.csv",
+                "--talkgroups-csv=${workspaceFolder}/input-csv/TalkGroups.csv",
+                "--output-directory=${workspaceFolder}/output"
+            ],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "integratedTerminal"
+        },
+        {
+            "name": ".NET CLI Check (channels.csv)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/src/AnytoneConfigBuilder.Cli/bin/Debug/net10.0/AnytoneConfigBuilder.Cli.dll",
+            "args": [
+                "check",
+                "--channels-csv=${workspaceFolder}/output/channels.csv",
+                "--output-html=${workspaceFolder}/output/checker-report.html"
+            ],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "integratedTerminal"
+        },
+        {
+            "name": ".NET CLI Undo (output CSVs)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/src/AnytoneConfigBuilder.Cli/bin/Debug/net10.0/AnytoneConfigBuilder.Cli.dll",
+            "args": [
+                "undo",
+                "--channels-csv=${workspaceFolder}/output/channels.csv",
+                "--zones-csv=${workspaceFolder}/output/zones.csv",
+                "--talkgroups-csv=${workspaceFolder}/output/talkgroups.csv",
+                "--output-directory=${workspaceFolder}/output/undo"
+            ],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "integratedTerminal"
+        }
+        ,
+        {
+            "name": ".NET CLI (Prompt for Args)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/src/AnytoneConfigBuilder.Cli/bin/Debug/net10.0/AnytoneConfigBuilder.Cli.dll",
+            "args": "${input:acbCliArgs}",
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "integratedTerminal"
+        }
+    ],
+    "inputs": [
+        {
+            "id": "acbCliArgs",
+            "type": "promptString",
+            "description": "CLI args (example: build --analog-csv=input-csv/Analog.csv --digital-others-csv=input-csv/Digital-Others.csv --digital-repeaters-csv=input-csv/Digital-Repeaters.csv --talkgroups-csv=input-csv/TalkGroups.csv --output-directory=output)",
+            "default": "defaults"
+        }
+    ]
+}

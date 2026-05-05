@@ -5,7 +5,6 @@ packages/
 *.user
 *.suo
 .vs/
-.vscode/
 *.csproj.user
 .DS_Store
 Thumbs.db
@@ -60,7 +59,6 @@ npm-debug.log
 yarn-error.log
 
 # ASP.NET specific
-wwwroot/lib/
 *.VisualState.xml
 
 # User-specific files
