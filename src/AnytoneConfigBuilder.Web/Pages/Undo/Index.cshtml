@@ -39,7 +39,7 @@
     </div>
 }
 
-<form method="post" enctype="multipart/form-data" class="card p-3 mb-4">
+<form id="undoForm" method="post" enctype="multipart/form-data" class="card p-3 mb-4">
     <div class="mb-3">
         <label class="form-label" for="channels">
             <i class="bi bi-file-earmark"></i> channels.csv
@@ -76,9 +76,64 @@
 </div>
 
 <script>
-    document.querySelector('form').addEventListener('submit', function() {
+    (function () {
+        const form = document.getElementById('undoForm');
         const btn = document.getElementById('submitBtn');
-        btn.disabled = true;
-        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Processing...';
-    });
+        const originalHtml = btn.innerHTML;
+
+        function getDownloadFileName(contentDisposition) {
+            if (!contentDisposition) {
+                return 'acb-undo-output.zip';
+            }
+
+            const utf8Match = contentDisposition.match(/filename\*=UTF-8''([^;]+)/i);
+            if (utf8Match && utf8Match[1]) {
+                return decodeURIComponent(utf8Match[1]);
+            }
+
+            const asciiMatch = contentDisposition.match(/filename="?([^";]+)"?/i);
+            if (asciiMatch && asciiMatch[1]) {
+                return asciiMatch[1];
+            }
+
+            return 'acb-undo-output.zip';
+        }
+
+        form.addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Processing...';
+
+            try {
+                const response = await fetch(form.action || window.location.href, {
+                    method: 'POST',
+                    body: new FormData(form)
+                });
+
+                const contentType = response.headers.get('content-type') || '';
+                if (contentType.includes('application/zip')) {
+                    const blob = await response.blob();
+                    const downloadUrl = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = downloadUrl;
+                    link.download = getDownloadFileName(response.headers.get('content-disposition'));
+                    document.body.appendChild(link);
+                    link.click();
+                    link.remove();
+                    URL.revokeObjectURL(downloadUrl);
+                    return;
+                }
+
+                const html = await response.text();
+                document.open();
+                document.write(html);
+                document.close();
+            }
+            finally {
+                btn.disabled = false;
+                btn.innerHTML = originalHtml;
+            }
+        });
+    })();
 </script>
